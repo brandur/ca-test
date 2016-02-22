@@ -12,6 +12,7 @@ bundles = [
   { :name => "Empty bundle (should fail)",     :file => "./ca-empty.crt" },
   { :name => "New cert bundle (cURL/Mozilla)", :file => "./ca-certificates-new.crt" },
   { :name => "Old cert bundle (from Ubuntu)",  :file => "./ca-certificates-old.crt" },
+  { :name => "rest-client default",            :file => nil },
 
   # Not 100% sure on this location.
   { :name => "Ubuntu system bundle",           :file => "/etc/ssl/certs/ca-certificates.crt" },
@@ -21,7 +22,7 @@ bundles.each do |info|
   begin
     puts "Running request for: #{info[:name]}"
 
-    if !File.exists?(info[:file])
+    if info[:file] != nil && !File.exists?(info[:file])
       puts "Bundle not found at: #{info[:file]} ... skipping"
       next
     end
